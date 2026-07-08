@@ -1,0 +1,12 @@
+# Não commitar as fotos originais (já tem versão otimizada em galeria/)
+assets/raw-fotos/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backups
+*.bak
+*.tmp
+*.orig

@@ -1,0 +1,30 @@
+name: Deploy Centro Automotivo Alianca v2 (A/B)
+
+# Disparado em push pra main (auto-deploy)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # permite rodar manual
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Deploy Hook v2
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_V2 }}" ]; then
+            echo "ERRO: Secret VERCEL_DEPLOY_HOOK_V2 nao configurado"
+            echo "Configure em: https://github.com/oanulino/centro-automotivo-alianca-v2/settings/secrets/actions"
+            echo "Crie o hook em: https://vercel.com/gustavoanulino2-6740s-projects/centro-automotivo-alianca-v2/settings/git"
+            exit 1
+          fi
+          echo "Disparando deploy hook v2..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_V2 }}")
+          if [ "$response" = "201" ] || [ "$response" = "200" ]; then
+            echo "Deploy v2 disparado com sucesso (HTTP $response)"
+            echo "Acompanhe em: https://vercel.com/gustavoanulino2-6740s-projects/centro-automotivo-alianca-v2"
+          else
+            echo "Erro ao disparar deploy v2 (HTTP $response)"
+            exit 1
+          fi
