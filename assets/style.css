@@ -100,7 +100,7 @@ h1, h2, h3, h4 { color: var(--azul-700); line-height: 1.2; font-weight: 700; }
 }
 .hero__bg {
   position: absolute; inset: 0;
-  background-image: url('assets/galeria/galeria_1.jpg');
+  background-image: url('galeria/galeria_1.jpg');
   background-size: cover;
   background-position: center;
   z-index: 0;
